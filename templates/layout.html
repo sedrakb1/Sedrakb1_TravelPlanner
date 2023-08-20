@@ -19,6 +19,49 @@
             </div>
         {% endif %}
     {% endwith %}
+    
+    <section class="header">
+        <img src="{{ url_for('static', filename='logopng.png') }}" alt="Travel Planner Logo">
+        <h1>Welcome to Travel Planner</h1>
+    </section>
+    
+    <!-- Hero section -->
+    <section class="hero">
+        <h1>Your Ultimate Travel Companion</h1>
+        <p>Plan, organize, and explore your dream destinations with ease.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('register') }}">Get Started</a>
+            <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </section>
+    
+    <!-- Benefits and Advantages section -->
+    <section class="benefits">
+        <div class="benefits-container">
+            <h2>Benefits and Advantages</h2>
+            <div class="benefit">
+                <h3>Save Time</h3>
+                <p>Effortlessly create and manage your itineraries, saving valuable time in the planning process.</p>
+            </div>
+            <div class="benefit">
+                <h3>Stay Organized</h3>
+                <p>Keep track of all your travel details in one place, ensuring a smooth and organized journey.</p>
+            </div>
+            <div class="benefit">
+                <h3>Explore New Destinations</h3>
+                <p>Discover exciting new destinations and hidden gems, and easily plan your adventures.</p>
+            </div>
+            <div class="benefit">
+                <h3>Share Itineraries</h3>
+                <p>Share your itineraries with friends and family, making it easy to coordinate group trips.</p>
+            </div>
+        </div>
+    </section>
+    
     {% block content %}{% endblock %}
+    
+    <footer class="footer">
+        <p>&copy; 2023 Travel Planner. All rights reserved.</p>
+    </footer>
 </body>
 </html>
