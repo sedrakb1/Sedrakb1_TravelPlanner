@@ -1,0 +1,93 @@
+/* Reset some default styles */
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color */
+body {
+    background-color: #fefae0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header section */
+.header {
+    background-color: #a2d2ff;
+    color: #283618;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Logo styling */
+.header img {
+    width: 300px;
+    height: 300px;
+}
+
+/* Hero section */
+.hero {
+    background-image: url('path-to-your-image.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #283618;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Features section */
+.features {
+    background-color: #fff;
+    padding: 40px;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.features p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* Call-to-action buttons */
+.cta-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cta-buttons a {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #001d3d;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-buttons a:hover {
+    background-color: #0056b3;
+}
+
+/* Footer section */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0;
+    }
+}
