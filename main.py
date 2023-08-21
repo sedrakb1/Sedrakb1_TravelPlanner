@@ -103,6 +103,14 @@ def dashboard():
         flash('You need to be logged in to access the dashboard.', 'warning')
         return redirect(url_for('login'))
 
+@app.route('/delete_itinerary/<int:id>', methods=['GET', 'POST'])
+def delete_itinerary(id):
+    itinerary = Itinerary.query.get(id)
+    if itinerary:
+        db.session.delete(itinerary)
+        db.session.commit()
+        flash('Itinerary deleted successfully!', 'success')
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     with app.app_context():

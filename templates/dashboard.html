@@ -3,24 +3,51 @@
 {% block content %}
     {% if username %}
         <h2>Welcome to Your Dashboard, {{ username }}!</h2>
-        <h3>Add New Itinerary</h3>
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            {{ form.day.label }} {{ form.day(size=10) }}
-            {{ form.location.label }} {{ form.location(size=20) }}
-            {{ form.description.label }} {{ form.description(cols=30, rows=5) }}
-            <button type="submit">Add Itinerary</button>
-        </form>
-
-        <h3>Your Itineraries</h3>
-        <ul>
-            {% for itinerary in itineraries %}
-                <li>
-                    Day: {{ itinerary.day }} - Location: {{ itinerary.location }}<br>
-                    Description: {{ itinerary.description }}
-                </li>
-            {% endfor %}
-        </ul>
+        
+        <!-- Display itineraries and edit forms -->
+        {% for itinerary in itineraries %}
+            <div class="itinerary">
+                <h3>Itinerary {{ itinerary.id }}</h3>
+                <p>Day: {{ itinerary.day }}</p>
+                <p>Location: {{ itinerary.location }}</p>
+                <p>Description: {{ itinerary.description }}</p>
+                
+                <!-- Edit button -->
+                <button class="edit-button" data-itinerary-id="{{ itinerary.id }}">Edit</button>
+                
+                <!-- Delete button -->
+                <a href="{{ url_for('delete_itinerary', id=itinerary.id) }}" class="delete-button">Delete</a>
+                
+                <!-- Edit form (initially hidden) -->
+                <form class="edit-form" id="edit-form-{{ itinerary.id }}" style="display: none" method="POST">
+                    {{ form.hidden_tag() }}
+                    <input type="hidden" name="itinerary_id" value="{{ itinerary.id }}">
+                    {{ form.day.label }} {{ form.day(size=10) }}
+                    {{ form.location.label }} {{ form.location(size=20) }}
+                    {{ form.description.label }} {{ form.description(cols=30, rows=5) }}
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        {% endfor %}
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const editButtons = document.querySelectorAll('.edit-button');
+            
+            editButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const itineraryId = button.getAttribute('data-itinerary-id');
+                    const editForm = document.getElementById(`edit-form-${itineraryId}`);
+                    
+                    if (editForm) {
+                        // Toggle edit form visibility
+                        editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+        </script>
+        
     {% else %}
         <p>You need to be logged in to access the dashboard.</p>
     {% endif %}
