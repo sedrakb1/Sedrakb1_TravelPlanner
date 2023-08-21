@@ -34,32 +34,57 @@
             <a href="{{ url_for('login') }}">Log In</a>
         </div>
     </section>
+   
     
-    <!-- Benefits and Advantages section -->
-    <section class="benefits">
-        <div class="benefits-container">
-            <h2>Benefits and Advantages</h2>
-            <div class="benefit">
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+ <!-- Benefits and Advantages section -->
+{% if not username %}
+<section class="benefits">
+    <div class="benefits-container">
+        <h2>Benefits and Advantages</h2>
+        <div class="benefit">
+            <div class="benefit-icon">
+                <img src="{{ url_for('static', filename='save-time-icon.png') }}" alt="Save Time Icon">
+            </div>
+            <div class="benefit-content">
                 <h3>Save Time</h3>
                 <p>Effortlessly create and manage your itineraries, saving valuable time in the planning process.</p>
             </div>
-            <div class="benefit">
+        </div>
+        <div class="benefit">
+            <div class="benefit-icon">
+                <img src="{{ url_for('static', filename='stay-organized-icon.png') }}" alt="Stay Organized Icon">
+            </div>
+            <div class="benefit-content">
                 <h3>Stay Organized</h3>
                 <p>Keep track of all your travel details in one place, ensuring a smooth and organized journey.</p>
             </div>
-            <div class="benefit">
+        </div>
+        <div class="benefit">
+            <div class="benefit-icon">
+                <img src="{{ url_for('static', filename='explore-destinations-icon.png') }}" alt="Explore Destinations Icon">
+            </div>
+            <div class="benefit-content">
                 <h3>Explore New Destinations</h3>
                 <p>Discover exciting new destinations and hidden gems, and easily plan your adventures.</p>
             </div>
-            <div class="benefit">
+        </div>
+        <div class="benefit">
+            <div class="benefit-icon">
+                <img src="{{ url_for('static', filename='share-itineraries-icon.png') }}" alt="Share Itineraries Icon">
+            </div>
+            <div class="benefit-content">
                 <h3>Share Itineraries</h3>
                 <p>Share your itineraries with friends and family, making it easy to coordinate group trips.</p>
             </div>
         </div>
-    </section>
-    
-    {% block content %}{% endblock %}
-    
+    </div>
+</section>
+{% endif %}
+
+    <!-- Footer or other common elements -->
     <footer class="footer">
         <p>&copy; 2023 Travel Planner. All rights reserved.</p>
     </footer>
