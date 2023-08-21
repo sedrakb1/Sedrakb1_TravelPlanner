@@ -112,6 +112,26 @@ def delete_itinerary(id):
         flash('Itinerary deleted successfully!', 'success')
     return redirect(url_for('dashboard'))
 
+@app.route('/update_itinerary', methods=['POST'])
+def update_itinerary():
+    if request.method == 'POST':
+        itinerary_id = request.form.get('itinerary_id')
+        updated_itinerary = Itinerary.query.get(itinerary_id)
+
+        if updated_itinerary:
+            updated_itinerary.day = request.form.get('day')
+            updated_itinerary.location = request.form.get('location')
+            updated_itinerary.description = request.form.get('description')
+
+            db.session.commit()
+            flash('Itinerary updated successfully!', 'success')
+
+    return redirect(url_for('dashboard'))
+
+
+
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
