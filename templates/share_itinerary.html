@@ -1,0 +1,38 @@
+<!-- CSIT537_51SU23	Bishoy Sedrak - Sedrakb1 -->
+<!-- M8: Project 3 -  Share Itinerary section-->
+{% extends 'layout.html' %}
+
+{% block content %}
+
+</style>
+<div class="itinerary-box">
+    <h2>Shared Itinerary Details</h2>
+    {% if itinerary %}
+        <p style="padding-left: 20px;">Day: {{ itinerary.day }}</p>
+        <p style="padding-left: 20px;">Location: {{ itinerary.location }}</p>
+        <p style="padding-left: 20px;">Description: {{ itinerary.description }}</p>
+
+        <br>
+        <p style="padding-left: 20px;">Share this link:</p>
+
+        <input type="text" value="{{ url_for('shared_itinerary', id=itinerary.id, _external=True) }}" id="shareLink" readonly>
+        <button onclick="copyToClipboard()">Copy Link</button>
+        <br>
+        <br>
+        <a href="{{ url_for('dashboard') }}" class="back-button">Back to Dashboard</a>
+    {% else %}
+        <p>Sorry, the shared itinerary does not exist.</p>
+    {% endif %}
+</div>
+
+<style>
+    .itinerary-box {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+    }
+</style>
+
+{% endblock %}
+
+<!-- End of Code - Bishoy Sedrak-->

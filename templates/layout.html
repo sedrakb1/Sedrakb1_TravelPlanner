@@ -1,92 +1,107 @@
+<!-- CSIT537_51SU23	Bishoy Sedrak - Sedrakb1 -->
+<!-- M8: Project 3 - The layout page works as a Home Page-->
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Travel Planner</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <nav>
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('register') }}">Register</a>
-        <a href="{{ url_for('login') }}">Login</a>
-    </nav>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for message in messages %}
-                    <div class="flash-message {{ message[1] }}">{{ message[0] }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    
-    <section class="header">
-        <img src="{{ url_for('static', filename='logopng.png') }}" alt="Travel Planner Logo">
-        <h1>Welcome to Travel Planner</h1>
-    </section>
-    
-    <!-- Hero section -->
-    <section class="hero">
-        <h1>Your Ultimate Travel Companion</h1>
-        <p>Plan, organize, and explore your dream destinations with ease.</p>
-        <div class="cta-buttons">
-            <a href="{{ url_for('register') }}">Get Started</a>
-            <a href="{{ url_for('login') }}">Log In</a>
-        </div>
-    </section>
-   
-    
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
- <!-- Benefits and Advantages section -->
-{% if not username %}
-<section class="benefits">
-    <div class="benefits-container">
-        <h2>Benefits and Advantages</h2>
-        <div class="benefit">
-            <div class="benefit-icon">
-                <img src="{{ url_for('static', filename='save-time-icon.png') }}" alt="Save Time Icon">
-            </div>
-            <div class="benefit-content">
-                <h3>Save Time</h3>
-                <p>Effortlessly create and manage your itineraries, saving valuable time in the planning process.</p>
-            </div>
-        </div>
-        <div class="benefit">
-            <div class="benefit-icon">
-                <img src="{{ url_for('static', filename='stay-organized-icon.png') }}" alt="Stay Organized Icon">
-            </div>
-            <div class="benefit-content">
-                <h3>Stay Organized</h3>
-                <p>Keep track of all your travel details in one place, ensuring a smooth and organized journey.</p>
-            </div>
-        </div>
-        <div class="benefit">
-            <div class="benefit-icon">
-                <img src="{{ url_for('static', filename='explore-destinations-icon.png') }}" alt="Explore Destinations Icon">
-            </div>
-            <div class="benefit-content">
-                <h3>Explore New Destinations</h3>
-                <p>Discover exciting new destinations and hidden gems, and easily plan your adventures.</p>
-            </div>
-        </div>
-        <div class="benefit">
-            <div class="benefit-icon">
-                <img src="{{ url_for('static', filename='share-itineraries-icon.png') }}" alt="Share Itineraries Icon">
-            </div>
-            <div class="benefit-content">
-                <h3>Share Itineraries</h3>
-                <p>Share your itineraries with friends and family, making it easy to coordinate group trips.</p>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
+	<head>
+	<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title> Travel Planner </title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+		<nav>
+			<a href="{{ url_for('index') }}"> Home </a>
+			<a href="{{ url_for('register') }}"> Register </a>
+			<a href="{{ url_for('login') }}"> Login </a>
+		</nav>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<div class="flash-messages">
+					{% for message in messages %}
+						<div class="flash-message {{ message[1] }}">{{ message[0] }}</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+		{% endwith %}
+		
+		<section class="header">
+			<img src="{{ url_for('static', filename='logopng.png') }}" alt="Travel Planner Logo">
+			<h1>Welcome to Travel Planner</h1>
+		</section>
+		
+		<!-- Hero section -->
+		<section class="hero">
+			<h1>Your Ultimate Travel Companion</h1>
+			<p>Plan, organize, and explore your dream destinations with ease.</p>
+			<div class="cta-buttons">
+				<a href="{{ url_for('register') }}">Get Started</a>
+				<a href="{{ url_for('login') }}">Log In</a>
+			</div>
+		</section>
+	   
+		
+		<div class="content">
+			{% block content %}{% endblock %}
+		</div>
+		
+	 <!-- Benefits and Advantages section -->
+	{% if not username %}
+		<section class="benefits">
+			<div class="benefits-container">
+				<h2>Benefits and Advantages</h2>
+				<div class="benefit">
+					<div class="benefit-icon">
+						<img src="{{ url_for('static', filename='save-time-icon.png') }}" alt="Save Time Icon">
+					</div>
+					<div class="benefit-content">
+						<h3>Save Time</h3>
+						<p>Effortlessly create and manage your itineraries, saving valuable time in the planning process.</p>
+					</div>
+				</div>
+				<div class="benefit">
+					<div class="benefit-icon">
+						<img src="{{ url_for('static', filename='stay-organized-icon.png') }}" alt="Stay Organized Icon">
+					</div>
+					<div class="benefit-content">
+						<h3>Stay Organized</h3>
+						<p>Keep track of all your travel details in one place, ensuring a smooth and organized journey.</p>
+					</div>
+				</div>
+				<div class="benefit">
+					<div class="benefit-icon">
+						<img src="{{ url_for('static', filename='explore-destinations-icon.png') }}" alt="Explore Destinations Icon">
+					</div>
+					<div class="benefit-content">
+						<h3>Explore New Destinations</h3>
+						<p>Discover exciting new destinations and hidden gems, and easily plan your adventures.</p>
+					</div>
+				</div>
+				<div class="benefit">
+					<div class="benefit-icon">
+						<img src="{{ url_for('static', filename='share-itineraries-icon.png') }}" alt="Share Itineraries Icon">
+					</div>
+					<div class="benefit-content">
+						<h3>Share Itineraries</h3>
+						<p>Share your itineraries with friends and family, making it easy to coordinate group trips.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
 
-    <!-- Footer or other common elements -->
-    <footer class="footer">
-        <p>&copy; 2023 Travel Planner. All rights reserved.</p>
-    </footer>
-</body>
+		<footer>
+			<div class="contact-container">
+				<h3>Contact Us</h3>
+				<p>If you have any questions or feedback, feel free to get in touch with us.</p>
+				<p>Email: <a href="mailto:sedrakb1@montcalir.edu"> sedrakb1@montclair.edu </a></p>
+			</div>
+			
+			<div class="footer">
+				<p>&copy; 2023 Travel Planner. All rights reserved.</p>
+			</div>
+		</footer>
+	</body>
 </html>
+
+
+<!-- End of Code - Bishoy Sedrak-->

@@ -1,24 +1,28 @@
+#        Bishoy Sedrak - Sedrakb1     #
+#        CSIT537_51SU23 - M8: Project 3 #
+
+# Import necessary modules
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask import request
-
 from forms import ItineraryForm
 
+# Create a Flask application instance
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your-secret-key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database for simplicity
+app.config['SECRET_KEY'] = 'Planner'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
-
+# Define User model representing the users table
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(120), nullable=False)
     itineraries = db.relationship('Itinerary', backref='user', lazy=True)
 
-
+# Define Itinerary model representing the itineraries table
 class Itinerary(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     day = db.Column(db.String(10), nullable=False)
@@ -27,13 +31,18 @@ class Itinerary(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-# Step 5: Create Routes
-
+# Define route to display index page
 @app.route('/')
 def index():
     return render_template('layout.html')
 
+# Define route to display shared itinerary
+@app.route('/shared_itinerary/<int:id>')
+def shared_itinerary(id):
+    itinerary = Itinerary.query.get(id)
+    return render_template('share_itinerary.html', itinerary=itinerary)
 
+# Define route for user registration
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -51,7 +60,7 @@ def register():
     return render_template('register.html')
 
 
-
+# Define route for user login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -71,8 +80,7 @@ def login():
 
 
 
-# ...
-
+# Define route for user dashboard
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     username = session.get('username')
@@ -103,15 +111,17 @@ def dashboard():
         flash('You need to be logged in to access the dashboard.', 'warning')
         return redirect(url_for('login'))
 
+# Define route to delete an itinerary
 @app.route('/delete_itinerary/<int:id>', methods=['GET', 'POST'])
 def delete_itinerary(id):
     itinerary = Itinerary.query.get(id)
     if itinerary:
         db.session.delete(itinerary)
-        db.session.commit()
+        db.session.commit() # Commit changes to the database
         flash('Itinerary deleted successfully!', 'success')
     return redirect(url_for('dashboard'))
 
+# Define route to update an itinerary
 @app.route('/update_itinerary', methods=['POST'])
 def update_itinerary():
     if request.method == 'POST':
@@ -119,20 +129,20 @@ def update_itinerary():
         updated_itinerary = Itinerary.query.get(itinerary_id)
 
         if updated_itinerary:
+            # Update itinerary details
             updated_itinerary.day = request.form.get('day')
             updated_itinerary.location = request.form.get('location')
             updated_itinerary.description = request.form.get('description')
 
-            db.session.commit()
+            db.session.commit() # Commit changes to the database
             flash('Itinerary updated successfully!', 'success')
 
     return redirect(url_for('dashboard'))
 
-
-
-
-
+# Run the Flask app only if the script is executed directly
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         app.run(debug=True)
+
+#End of Code - Bishoy Sedrak

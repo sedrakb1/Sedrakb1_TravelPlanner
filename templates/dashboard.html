@@ -1,18 +1,25 @@
+<!-- CSIT537_51SU23	Bishoy Sedrak - Sedrakb1 -->
+<!-- M8: Project 3 - Dashboard is the essential page where the user can add -->
 {% extends 'layout.html' %}
 
 {% block content %}
     {% if username %}
-	<section class="dashboard-section">
-        <h2>Welcome to Your Dashboard, {{ username }}!</h2>
+	
+	<div class="dashboard-container">
+    <section class="dashboard-section">
+        <h2> Welcome to Your Dashboard, {{ username }}!</h2>
         
         <!-- Display itineraries and edit forms -->
         {% for itinerary in itineraries %}
             <div class="itinerary">
                 <!-- Display itinerary details -->
-                <p>Day: {{ itinerary.day }}</p>
-                <p>Location: {{ itinerary.location }}</p>
-                <p>Description: {{ itinerary.description }}</p>
+                <p> <b> Day: </b> {{ itinerary.day }}</p>
+                <p> <b> Location: </b> {{ itinerary.location }}</p>
+                <p> <b> Description: </b> {{ itinerary.description }}</p>
                 
+				<!-- Share link -->
+				<p> Share Link: <a href="{{ url_for('shared_itinerary', id=itinerary.id, _external=True) }}">Share</a></p>
+				<br>
                 <!-- Edit button -->
                 <button class="edit-button" data-itinerary-id="{{ itinerary.id }}">Edit</button>
                 
@@ -27,64 +34,71 @@
                     {{ form.location.label }} {{ form.location(size=20, value=itinerary.location) }}
                     {{ form.description.label }} {{ form.description(cols=30, rows=5) }}
                     <textarea name="description">{{ itinerary.description }}</textarea>
-                    <button type="submit">Update</button>
+                    <button type="submit"> Update </button>
                 </form>
             </div>
+			
         {% endfor %}
-        
+        <br>
+		<br>
         <!-- Add New Itinerary Form -->
         <h3>Add New Itinerary</h3>
-        <form method="POST">
+		
+        <form class="add-itinerary-form" method="POST">
             {{ form.hidden_tag() }}
             {{ form.day.label }} {{ form.day(size=10) }}
             {{ form.location.label }} {{ form.location(size=20) }}
             {{ form.description.label }} {{ form.description(cols=30, rows=5) }}
             <button type="submit">Add Itinerary</button>
         </form>
-       </section>
-<!-- ... -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const editButtons = document.querySelectorAll('.edit-button');
-    
-    editButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const itineraryId = button.getAttribute('data-itinerary-id');
-            const editForm = document.getElementById(`edit-form-${itineraryId}`);
-            
-            if (editForm) {
-                // Toggle edit form visibility
-                editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
-            }
-        });
-    });
-    
-    const editForms = document.querySelectorAll('.edit-form');
-    
-    editForms.forEach(form => {
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(form);
-            const response = await fetch('/update_itinerary', {
-                method: 'POST',
-                body: formData,
-            });
-            
-            // Handle response and update UI if needed
-            if (response.ok) {
-                // Reload the page to reflect the changes
-                window.location.reload();
-            } else {
-                // Handle errors or display a message to the user
-            }
-        });
-    });
-});
-</script>
-<!-- ... -->
+           </section>
+	</div>
+	
+<!-- The JS script -->
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const editButtons = document.querySelectorAll('.edit-button');
+			
+			editButtons.forEach(button => {
+				button.addEventListener('click', () => {
+					const itineraryId = button.getAttribute('data-itinerary-id');
+					const editForm = document.getElementById(`edit-form-${itineraryId}`);
+					
+					if (editForm) {
+						// Toggle edit form visibility
+						editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+					}
+				});
+			});
+			
+			const editForms = document.querySelectorAll('.edit-form');
+			
+			editForms.forEach(form => {
+				form.addEventListener('submit', async (event) => {
+					event.preventDefault();
+					const formData = new FormData(form);
+					const response = await fetch('/update_itinerary', {
+						method: 'POST',
+						body: formData,
+					});
+					
+						// Handle response and update UI if needed
+					if (response.ok) {
+						// Reload the page to reflect the changes
+						window.location.reload();
+					} else {
+						// Handle errors or display a message to the user
+					}
+				});
+			});
+		});
+		</script>
+
 
         
     {% else %}
         <p>You need to be logged in to access the dashboard.</p>
     {% endif %}
 {% endblock %}
+
+<!-- End of Code - Bishoy Sedrak-->
